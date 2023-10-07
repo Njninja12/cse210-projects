@@ -18,10 +18,11 @@ while (choice != "5")
         case "1":
             // Generate a random prompt.
             string[] prompts = {
-                        "Write about your day.",
+                        "If I had one thing I could do over today, what would it be?",
                         "What are you grateful for today?",
                         "Describe a challenge you faced today.",
                         "Write about a happy memory.",
+                        "How did I see the hand of the Lord in my life today?",
                         // Add more prompts as needed.
                     };
             int index = random.Next(prompts.Length);
