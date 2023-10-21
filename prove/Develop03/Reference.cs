@@ -2,7 +2,13 @@ using System;
 
 class ScriptureReference
 {
-    public string Reference { get; }
+    private string reference;
+
+    public string Reference
+    {
+        get { return reference; }
+        private set { reference = value; }
+    }
 
     public ScriptureReference(string reference)
     {

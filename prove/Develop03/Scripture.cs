@@ -2,10 +2,28 @@ using System;
 
 class Scripture
 {
-    public ScriptureReference Reference { get; }
-    public string Text { get; }
-    public string[] Words { get; }
+    private ScriptureReference reference;
+    private string text;
+    private string[] words;
     private Random random;
+
+    public ScriptureReference Reference
+    {
+        get { return reference; }
+        private set { reference = value; }
+    }
+
+    public string Text
+    {
+        get { return text; }
+        private set { text = value; }
+    }
+
+    public string[] Words
+    {
+        get { return words; }
+        private set { words = value; }
+    }
 
     public Scripture(ScriptureReference reference, string text)
     {
