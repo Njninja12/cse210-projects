@@ -1,20 +1,18 @@
-using System;
-
 class ScriptureWord
 {
-    private string word;
-    private int index;
+    private string _word;
+    private int _index;
 
     public string Word
     {
-        get { return word; }
-        private set { word = value; }
+        get { return _word; }
+        private set { _word = value; }
     }
 
     public int Index
     {
-        get { return index; }
-        private set { index = value; }
+        get { return _index; }
+        private set { _index = value; }
     }
 
     public ScriptureWord(string word, int index)

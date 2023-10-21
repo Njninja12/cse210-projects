@@ -16,25 +16,25 @@ class Program
             return;
         }
 
-        var reference = new ScriptureReference("John 3:16");
-        var scripture = new Scripture(reference, "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.");
-        MemorizationSession(scripture);
+        var _reference = new ScriptureReference("John 3:16");
+        var _scripture = new Scripture(_reference, "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.");
+        MemorizationSession(_scripture);
     }
 
-    static void MemorizationSession(Scripture scripture)
+    static void MemorizationSession(Scripture _scripture)
     {
-        var text = scripture.Text;
-        var hiddenWords = new List<ScriptureWord>();
+        var _text = _scripture.Text;
+        var _hiddenWords = new List<ScriptureWord>();
 
-        while (hiddenWords.Count < scripture.Words.Length)
+        while (_hiddenWords.Count < _scripture.Words.Length)
         {
             Console.Clear();
-            Console.WriteLine($"Scripture Reference: {scripture.Reference.Reference}");
+            Console.WriteLine($"Scripture Reference: {_scripture.Reference}");
             Console.WriteLine();
             Console.WriteLine("Scripture Text:");
 
-            string[] visibleWords = scripture.HideWords(hiddenWords);
-            Console.WriteLine(string.Join(" ", visibleWords));
+            string[] _visibleWords = _scripture.HideWords(_hiddenWords);
+            Console.WriteLine(string.Join(" ", _visibleWords));
 
             Console.WriteLine();
             Console.WriteLine("Press enter to continue, or type 'quit' to exit.");
@@ -46,12 +46,11 @@ class Program
                 return;
             }
 
-            hiddenWords.Add(scripture.GetRandomUnhiddenWord(hiddenWords));
+            _hiddenWords.Add(_scripture.GetRandomUnhiddenWord(_hiddenWords));
         }
 
         Console.Clear();
         Console.WriteLine("You've successfully memorized the entire scripture!");
     }
 }
-
 

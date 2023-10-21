@@ -1,28 +1,26 @@
-using System;
-
 class Scripture
 {
-    private ScriptureReference reference;
-    private string text;
-    private string[] words;
-    private Random random;
+    private ScriptureReference _reference;
+    private string _text;
+    private string[] _words;
+    private Random _random;
 
     public ScriptureReference Reference
     {
-        get { return reference; }
-        private set { reference = value; }
+        get { return _reference; }
+        private set { _reference = value; }
     }
 
     public string Text
     {
-        get { return text; }
-        private set { text = value; }
+        get { return _text; }
+        private set { _text = value; }
     }
 
     public string[] Words
     {
-        get { return words; }
-        private set { words = value; }
+        get { return _words; }
+        private set { _words = value; }
     }
 
     public Scripture(ScriptureReference reference, string text)
@@ -30,33 +28,33 @@ class Scripture
         Reference = reference;
         Text = text;
         Words = text.Split(' ');
-        random = new Random();
+        _random = new Random();
     }
 
-    public string[] HideWords(List<ScriptureWord> hiddenWords)
+    public string[] HideWords(List<ScriptureWord> _hiddenWords)
     {
-        var visibleWords = new string[Words.Length];
-        for (int i = 0; i < Words.Length; i++)
+        var _visibleWords = new string[_words.Length];
+        for (int i = 0; i < _words.Length; i++)
         {
-            if (hiddenWords.Any(word => word.Index == i))
+            if (_hiddenWords.Any(word => word.Index == i))
             {
-                visibleWords[i] = "_____";
+                _visibleWords[i] = "_____";
             }
             else
             {
-                visibleWords[i] = Words[i];
+                _visibleWords[i] = _words[i];
             }
         }
-        return visibleWords;
+        return _visibleWords;
     }
 
-    public ScriptureWord GetRandomUnhiddenWord(List<ScriptureWord> hiddenWords)
+    public ScriptureWord GetRandomUnhiddenWord(List<ScriptureWord> _hiddenWords)
     {
-        var unhiddenWords = Words
+        var _unhiddenWords = _words
             .Select((word, index) => new ScriptureWord(word, index))
-            .Where(word => !hiddenWords.Contains(word))
+            .Where(word => !_hiddenWords.Contains(word))
             .ToList();
 
-        return unhiddenWords[random.Next(0, unhiddenWords.Count)];
+        return _unhiddenWords[_random.Next(0, _unhiddenWords.Count)];
     }
 }

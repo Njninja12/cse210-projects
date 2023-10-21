@@ -1,13 +1,11 @@
-using System;
-
 class ScriptureReference
 {
-    private string reference;
+    private string _reference;
 
     public string Reference
     {
-        get { return reference; }
-        private set { reference = value; }
+        get { return _reference; }
+        private set { _reference = value; }
     }
 
     public ScriptureReference(string reference)
