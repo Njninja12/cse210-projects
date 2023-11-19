@@ -10,7 +10,9 @@ class Program
             Console.WriteLine("1. Create New Goal");
             Console.WriteLine("2. Record Event");
             Console.WriteLine("3. Display Goals");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Save Goals");
+            Console.WriteLine("5. Load Goals");
+            Console.WriteLine("6. Exit");
 
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
@@ -26,6 +28,12 @@ class Program
                         eternalQuestProgram.DisplayGoals();
                         break;
                     case 4:
+                        eternalQuestProgram.SaveGoals();
+                        break;
+                    case 5:
+                        eternalQuestProgram.LoadGoals();
+                        break;
+                    case 6:
                         Console.WriteLine("Exiting program.");
                         return;
                     default:

@@ -57,12 +57,12 @@ class EternalQuestProgram
     {
         Console.Write("Enter the goal name for recording an event: ");
         string goalName = Console.ReadLine();
-        Goal goal = goals.Find(g => g.Name == goalName);
+        Goal goal = goals.Find(g => g._name == goalName);
         if (goal != null)
         {
             goal.RecordEvent();
-            userScore += goal.Value;
-            Console.WriteLine($"Event recorded for {goalName}. You earned {goal.Value} points.");
+            userScore += goal._value;
+            Console.WriteLine($"Event recorded for {goalName}. You earned {goal._value} points.");
         }
         else
         {
@@ -74,9 +74,80 @@ class EternalQuestProgram
     {
         foreach (Goal goal in goals)
         {
-            Console.WriteLine($"{goal.GetGoalStatus()} {goal.Name} - Score: {goal.Value}");
+            Console.WriteLine($"{goal.GetGoalStatus()} {goal._name} - Score: {goal._value}");
         }
 
         Console.WriteLine($"\nTotal Score: {userScore}");
+    }
+
+    public void SaveGoals()
+    {
+        using (StreamWriter writer = new StreamWriter("goals.txt"))
+        {
+            foreach (Goal goal in goals)
+            {
+                writer.WriteLine($"{goal.GetType().Name}|{goal._name}|{goal._value}|{goal._isCompleted}");
+            }
+        }
+
+        using (StreamWriter writer = new StreamWriter("score.txt"))
+        {
+            writer.WriteLine(userScore);
+        }
+
+        Console.WriteLine("Goals and score saved successfully.");
+    }
+
+    public void LoadGoals()
+    {
+        goals.Clear(); // Clear existing goals before loading
+
+        try
+        {
+            using (StreamReader reader = new StreamReader("goals.txt"))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] parts = line.Split('|');
+                    string goalType = parts[0];
+                    string name = parts[1];
+                    int value = int.Parse(parts[2]);
+                    bool isCompleted = bool.Parse(parts[3]);
+
+                    switch (goalType)
+                    {
+                        case nameof(SimpleGoal):
+                            goals.Add(new SimpleGoal(name, value) { _isCompleted = isCompleted });
+                            break;
+                        case nameof(EternalGoal):
+                            goals.Add(new EternalGoal(name, value) { _isCompleted = isCompleted });
+                            break;
+                        case nameof(ChecklistGoal):
+                            int targetCount = int.Parse(parts[4]);
+                            goals.Add(new ChecklistGoal(name, value, targetCount) { _isCompleted = isCompleted });
+                            break;
+                        default:
+                            Console.WriteLine($"Unknown goal type: {goalType}. Skipping.");
+                            break;
+                    }
+                }
+            }
+
+            using (StreamReader reader = new StreamReader("score.txt"))
+            {
+                userScore = int.Parse(reader.ReadLine());
+            }
+
+            Console.WriteLine("Goals and score loaded successfully.");
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("No saved data found.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading data: {ex.Message}");
+        }
     }
 }

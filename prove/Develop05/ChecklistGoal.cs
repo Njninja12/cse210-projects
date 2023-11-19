@@ -6,16 +6,16 @@ class ChecklistGoal : Goal
     public ChecklistGoal(string name, int value, int targetCount) : base(name)
     {
         this.targetCount = targetCount;
-        Value = value;
+        _value = value;
         currentCount = 0;
     }
 
     public override void RecordEvent()
     {
-        if (!IsCompleted)
+        if (!_isCompleted)
         {
             currentCount++;
-            Value += 1; // For simplicity, each event increments by 1
+            _value += 1; // For simplicity, each event increments by 1
             CheckCompletion();
         }
     }
@@ -24,8 +24,8 @@ class ChecklistGoal : Goal
     {
         if (currentCount == targetCount)
         {
-            IsCompleted = true;
-            Value += CalculateCompletionBonus();
+            _isCompleted = true;
+            _value += CalculateCompletionBonus();
         }
     }
 
@@ -36,6 +36,6 @@ class ChecklistGoal : Goal
 
     public override string GetGoalStatus()
     {
-        return IsCompleted ? $"Completed {currentCount}/{targetCount} times" : $"Not Completed {currentCount}/{targetCount} times";
+        return _isCompleted ? $"Completed {currentCount}/{targetCount} times" : $"Not Completed {currentCount}/{targetCount} times";
     }
 }

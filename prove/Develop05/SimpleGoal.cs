@@ -2,20 +2,20 @@ class SimpleGoal : Goal
 {
     public SimpleGoal(string name, int value) : base(name)
     {
-        Value = value;
+        _value = value;
     }
 
     public override void RecordEvent()
     {
-        if (!IsCompleted)
+        if (!_isCompleted)
         {
-            Value += 1; // For simplicity, each event increments by 1
-            IsCompleted = true;
+            _value += 1; // For simplicity, each event increments by 1
+            _isCompleted = true;
         }
     }
 
     public override string GetGoalStatus()
     {
-        return IsCompleted ? "[X]" : "[ ]";
+        return _isCompleted ? "[X]" : "[ ]";
     }
 }

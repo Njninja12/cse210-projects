@@ -1,14 +1,14 @@
 abstract class Goal
 {
-    public string Name { get; set; }
-    public int Value { get; protected set; }
-    public bool IsCompleted { get; protected set; }
+    public string _name;
+    public int _value;
+    public bool _isCompleted; // Change to protected set
 
     protected Goal(string name)
     {
-        Name = name;
-        Value = 0;
-        IsCompleted = false;
+        _name = name;
+        _value = 0;
+        _isCompleted = false;
     }
 
     public abstract void RecordEvent();
